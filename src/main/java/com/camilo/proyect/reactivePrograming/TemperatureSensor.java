@@ -1,4 +1,4 @@
-package reactivePrograming;
+package com.camilo.proyect.reactivePrograming;
 
 import io.reactivex.rxjava3.core.Observable;
 
