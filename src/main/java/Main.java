@@ -1,4 +1,5 @@
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class Main {
     public static void main(String[] args){
@@ -6,6 +7,16 @@ public class Main {
 
         long start = System.currentTimeMillis();
 
+        numbers.parallelStream().map(
+                n -> {
+                    try {
+//                       Thread.sleep(1000);
+                        TimeUnit.SECONDS.sleep(1);
+                    } catch (InterruptedException e){}
+                        System.out.println("Procesando numero: " + n);
+                        return n * 2;
+
+                }).forEach(System.out::println);
 
         long end = System.currentTimeMillis();
         System.out.println("Tiempo total (secuencial): " + (end - start) + " ms");
