@@ -10,13 +10,7 @@ public class StudentService {
     private final List<Student> students = new ArrayList<>();
 
     public void subscribeTo(Observable<Student> stream){
-        stream
-                .filter(stu -> stu.getAge() >= 21)
-                .map(stu -> {
-                    stu.setName(stu.getName().toUpperCase());
-                    return stu;
-                })
-                .subscribe(
+        stream.subscribe(
                 stu -> {
                     System.out.println("Adding student.... " + stu);
                     this.students.add(stu);
@@ -45,5 +39,35 @@ public class StudentService {
                    .orElse(0);
               System.out.println("Age Average: " + Math.round(ageAverage));
         }
+    }
+
+    public Observable<Student> verifyStudent(Student student) {
+        return Observable.create(emitter -> {
+            System.out.println("Veryfing..... " + student.getName());
+            Thread.sleep(1000);
+
+            if(student.getAge() >= 18){
+               emitter.onNext(student);
+            } else {
+                System.out.println("The student is a minor... " + student.getName());
+            }
+
+            emitter.onComplete();
+        });
+    }
+
+    public Observable<Student> validateStudentName(Student student){
+        return Observable.create(emitter -> {
+            System.out.println("Verifing name... ");
+            Thread.sleep(1000);
+
+            if(student.getName().length() < 3){
+                emitter.onError(new IllegalArgumentException("The student name is invalid"));
+            } else {
+               emitter.onNext(student);
+            }
+
+            emitter.onComplete();
+        });
     }
 }

@@ -11,6 +11,7 @@ public class StudentConsoleView {
     public StudentConsoleView(StudentController studentController) {
         this.studentController = studentController;
         this.scanner = new Scanner(System.in);
+
     }
 
     public void start(){
