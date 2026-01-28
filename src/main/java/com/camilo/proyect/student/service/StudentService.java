@@ -10,7 +10,13 @@ public class StudentService {
     private final List<Student> students = new ArrayList<>();
 
     public void subscribeTo(Observable<Student> stream){
-        stream.subscribe(
+        stream
+                .filter(stu -> stu.getAge() >= 21)
+                .map(stu -> {
+                    stu.setName(stu.getName().toUpperCase());
+                    return stu;
+                })
+                .subscribe(
                 stu -> {
                     System.out.println("Adding student.... " + stu);
                     this.students.add(stu);
@@ -37,7 +43,7 @@ public class StudentService {
                    .mapToInt(Student::getAge)
                    .average()
                    .orElse(0);
-              System.out.println("Age Average: " + ageAverage);
+              System.out.println("Age Average: " + Math.round(ageAverage));
         }
     }
 }

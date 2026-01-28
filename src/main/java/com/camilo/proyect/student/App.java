@@ -1,15 +1,13 @@
 package com.camilo.proyect.student;
 
 import com.camilo.proyect.student.controller.StudentController;
-import com.camilo.proyect.student.model.Student;
+import com.camilo.proyect.student.service.StudentService;
 import com.camilo.proyect.student.stream.StudentStream;
 import com.camilo.proyect.student.view.StudentConsoleView;
 
 public class App {
     public static void main(String[] args) {
-        StudentStream stream = new StudentStream();
-
-//        stream.getStream().subscribe(
+        //        stream.getStream().subscribe(
 //                item -> System.out.println(item),
 //                error -> System.out.println(error.getMessage()),
 //                () -> System.out.println("Finished")
@@ -20,7 +18,9 @@ public class App {
 //
 //        stream.complete();
 
-        StudentController studentController = new StudentController(stream);
+        StudentStream stream = new StudentStream();
+        StudentService studentService = new StudentService();
+        StudentController studentController = new StudentController(stream, studentService);
         StudentConsoleView view = new StudentConsoleView(studentController);
 
         view.start();

@@ -19,7 +19,11 @@ public class StudentConsoleView {
         while(true){
             System.out.println("Type the name");
             String name = scanner.nextLine().trim();
-            if(name.equalsIgnoreCase("exit")) break;
+            if(name.equalsIgnoreCase("exit")) {
+                studentController.finishInput();
+                System.out.println("End...");
+                break;
+            };
 
             System.out.println("Type the age");
             String age = scanner.nextLine();
@@ -28,9 +32,6 @@ public class StudentConsoleView {
             if (!ok){
                 System.out.println("Invalid age....");
             }
-
-            studentController.finishInput();
-            System.out.println("End....");
         }
     }
 
